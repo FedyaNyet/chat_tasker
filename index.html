@@ -1,0 +1,28 @@
+<html ng-app="MyApp">
+	<head>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="/static/css/styles.css">
+
+	</head>
+	<body ng-controller="AppController">
+		
+		<div ng-view></div>
+
+		<script src='/static/js/angular.min.js'></script>
+		<script src='/static/js/firebase.js'></script>
+		<script src='/static/js/angularfire.min.js'></script>
+    	<script src="/static/js/jquery.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+		
+		<script src='controller/AppController.js'></script>
+	    <script src='controller/ChatController.js'></script>
+	    <script src='controller/UserController.js'></script>
+	    <script src='model/CurrentUserModel.js'></script>
+
+	</body>
+</html>

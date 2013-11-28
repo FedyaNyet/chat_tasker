@@ -1,0 +1,56 @@
+*{}
+
+body{
+	background-image:url("/static/img/bg-5.png");
+}
+
+.container{
+	background-color: rgba(255,255,255,0.5);
+}
+
+.row.full{
+	height:100%;
+}
+
+#tasks, #users{
+	height:100%;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+#messageOut{
+	padding-top: 15px;
+	height:90%;
+}
+#messageIn{
+	padding-top: 15px;
+	height:10%;
+	padding-bottom: 15px;
+}
+.form-control{
+	height:100%;
+	box-shadow: 0px 0px 10px -4px #333 inset;
+}
+#chat{
+	height:100%;
+}
+.side-bar{
+}
+
+#logout{
+	float:right
+}
+
+#login{
+	margin-top:200px;
+}
+
+#username{
+	height:35px;
+}
+
+ul{
+	list-style: none;
+	list-style-position: outside;
+	overflow-y: scroll;
+}
