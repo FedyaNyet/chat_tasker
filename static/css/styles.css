@@ -1,9 +1,9 @@
 *{}
 
 body{
-	background-image:url("/static/img/bg-5.png");
+	background-image:url("../img/bg-5.png");
 }
-
+	
 .container{
 	background-color: rgba(255,255,255,0.5);
 }
@@ -12,33 +12,69 @@ body{
 	height:100%;
 }
 
-#tasks, #users{
-	height:100%;
-	padding-top: 15px;
-	padding-bottom: 15px;
+.task-container{
+	height: 100%;
+	margin-top: -65px;
+	position: relative;
+	z-index: 4;
+}
+
+#tasks {
+	display: block;
+	position: absolute;
+	height: auto;
+	top: 80px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin-bottom: 0;
+}
+
+#tasks input[type="text"]{
+	border:none;
+	width:100%;
+}
+
+#tasks .text.line-through{
+	text-decoration: line-through;
+	color:#aaa;
+}
+
+#tasks li{
+	margin-bottom:2px;
 }
 
 #messageOut{
-	padding-top: 15px;
-	height:90%;
+    height: 100%;
+    position: relative;
+}
+#messageOut ul{
+    position: absolute;
+    top: 15px;
+    bottom: 55px;
+    height: auto;
+
 }
 #messageIn{
-	padding-top: 15px;
-	height:10%;
-	padding-bottom: 15px;
+	position: absolute;
+	bottom: 15px;
+	width: auto;
+	left: 15px;
+	right: 15px;
 }
 .form-control{
-	height:100%;
 	box-shadow: 0px 0px 10px -4px #333 inset;
 }
+
 #chat{
 	height:100%;
 }
-.side-bar{
-}
 
 #logout{
-	float:right
+	width: 100%;
+	margin-top: 15px;
+	position: relative;
+	z-index: 5;
 }
 
 #login{

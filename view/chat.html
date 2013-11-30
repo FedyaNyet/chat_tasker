@@ -1,29 +1,32 @@
 <div class="container">
 	<div class="row">
-		<div id="tasks" class="col-md-3">
-			<div class="side-bar form-control" >Tasks</div>
+		<div class="col-md-3">
+		    <button id="logout" type="button" class="btn btn-default" ng-controller="UserController"  ng-click="logout()">
+		    	<span class="glyphicon glyphicon-remove"></span>
+		    	Switch User
+		    </button>
+		    <div class="task-container">
+				<ul id="tasks" class="form-control"  ng-controller="TaskController">
+					<li>
+						<input type="text" ng-model="newTask" placeholder="Add New Task..." ng-keydown="addTask($event)">
+					</li>
+					<li ng-repeat="task in tasks">
+						<input type="checkbox" ng-model="task.checked">
+						<span class="text {{getClass(task)}}">{{task.text}}</span>
+						<button type="button" class="close" aria-hidden="true" ng-click="removeTask($index)">&times;</button>
+					</li>
+				</ul>
+		    </div>
 		</div>
-		<div id="chat" class="col-md-7" ng-controller="ChatController">
+		<div id="chat" class="col-md-9" ng-controller="ChatController">
 			<div id="messageOut">
 				<ul class="form-control">
-					<li ng-repeat="msg in messages" on-finish-render="scrollChatUp()">
-						<em>{{msg.from}}</em>: {{msg.body}}
+					<li ng-repeat="msg in messages" on-finish-render>
+						<b>{{msg.from}}</b>: {{msg.body}}
 					</li>
 				</ul>
 			</div>
-			<div id="messageIn">
-				<input class="form-control" type="text" ng-model="msg" placeholder="Message..." ng-keydown="addMessage($event)" >
-			</div>
-		</div>
-		<div id="users" class="col-md-2 col-sm-0" ng-controller="UserController">
-			<ul class="side-bar form-control">
-				<li ng-repeat="user in users">
-					<span>{{user.username}}</span>
-				    <button id="logout" ng-if="showLogout(user.username)" type="button" class="btn btn-default btn-xs" ng-click="logout()">
-				    	<span class="glyphicon glyphicon-remove"></span>
-				    </button>
-				</li>
-			</ul>
+			<input id="messageIn" class="form-control" type="text" ng-model="newMessage" placeholder="Message..." ng-keydown="addMessage($event)" >
 		</div>
 	</div>
 </div>	
