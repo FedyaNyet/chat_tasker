@@ -1,7 +1,7 @@
 
 
 var MyApp = angular
-	.module('MyApp', ["firebase"])
+	.module('MyApp', ["ngRoute", "ngAnimate", "firebase"])
 	.config(function($routeProvider) {
 		$routeProvider
 			.when('/login', {
@@ -9,8 +9,8 @@ var MyApp = angular
 				templateUrl: 'view/login.html'
 			})
 			.when('/chat', {
-				controller: 'ChatController',
-				templateUrl: 'view/chat.html'
+				controller: 'AppController',
+				templateUrl: 'view/main.html'
 			})
 			.otherwise({
 				redirectTo: '/login'
@@ -31,6 +31,8 @@ var MyApp = angular
 	.controller('AppController',
 		function($scope, $location, CurrentUserModel){
 			
+			$scope.activeChat = "public";
+
 			//If use is loggedIn, send them to Chat, otherwise to Login.
 			$scope.$watch(function() { return $location.path(); }, function(newValue, oldValue){
 				if (! CurrentUserModel.getUser().loggedIn){

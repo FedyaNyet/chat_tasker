@@ -1,4 +1,8 @@
+
 <div class="container">
+	<div class="row">
+		{{activeChat}}
+	</div>		
 	<div class="row">
 		<div class="col-md-3">
 		    <button id="logout" type="button" class="btn btn-default" ng-controller="UserController"  ng-click="logout()">
@@ -18,20 +22,18 @@
 				</ul>
 		    </div>
 		</div>
-		<div id="chat" class="col-md-7" ng-controller="ChatController">
-			<div id="messageOut">
-				<ul class="form-control">
-					<li ng-repeat="msg in messages" on-finish-render>
-						<b>{{msg.from}}</b>: {{msg.body}}
-					</li>
-				</ul>
+		<div ng-switch on="activeChat">
+			<div class"slide-in-right slide-out-left"  ng-switch-when="public" >
+				<ng-include src="'view/public-chat.html'"  ></ng-include>
 			</div>
-			<input id="messageIn" class="form-control" type="text" ng-model="newMessage" placeholder="Message..." ng-keydown="addMessage($event)" >
+			<div class="slide-in-left slide-out-right" ng-switch-when="private" >
+				<ng-include src="'view/private-chat.html'" ></ng-include>
+			</div>
 		</div>
 		<div id="users" class="col-md-2" ng-controller="UserController">
 			<ul class="form-control">
-				<li ng-repeat="(username, status) in users">
-					<b>{{username}}</b>
+				<li class="user" ng-repeat="(username, status) in users">
+					<b ng-controller="PrivateChatController" ng-click="showConversation($parent.username)">{{$parent.username}}</b>
 				</li>
 			</ul>
 		</div>

@@ -8,6 +8,11 @@ MyApp.controller('UserController',
 		var ref = new Firebase("https://usernames-cs-701.firebaseio.com/");
 		angularFire(ref, $scope, "users");
 
+		$scope.userClicked = function(username){
+			$scope.$parent.activeChat = "private";
+			CurrentUserModel.showPrivateMessage($scope.user.username, username);
+		}
+
 		$scope.logout = function(){
 			delete $scope.users[$scope.user.username];
 			CurrentUserModel.logout();

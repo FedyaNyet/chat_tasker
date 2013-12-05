@@ -66,8 +66,22 @@ body{
 	box-shadow: 0px 0px 10px -4px #333 inset;
 }
 
-#chat{
+#publicChat, #privateChat{
 	height:100%;
+}
+
+#publicChat.ng-enter{
+	
+}
+#publicChat.ng-leave{
+	
+}
+
+#privateChat.ng-enter{
+	
+}
+#privateChat.ng-leave{
+	
 }
 
 #users{
@@ -83,6 +97,10 @@ body{
 	right: 15px;
 	height:auto;
 	width: auto;
+}
+
+#users .user{
+	cursor: pointer;
 }
 
 #logout{
@@ -105,3 +123,5 @@ ul{
 	list-style-position: outside;
 	overflow-y: scroll;
 }
+
+#modal

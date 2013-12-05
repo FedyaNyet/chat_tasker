@@ -1,5 +1,5 @@
 
-MyApp.controller('ChatController',
+MyApp.controller('PublicChatController',
 	function ($scope, $timeout, $location, $routeParams, CurrentUserModel, angularFire) {
 		
 		//This enables chat to scroll down only after a newMessage is added, OR the page is loaded... (not on newMessage keydown)

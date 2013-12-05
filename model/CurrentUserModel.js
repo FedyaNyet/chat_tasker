@@ -27,5 +27,11 @@ MyApp.service('CurrentUserModel',
 			this.username = "";
 			this.loggedIn = false;
 		};
+
+		this.showPrivateMessage = function(sender, receiver){
+			if(this.username == receiver){
+				console.log('message from:'+sender);
+			}
+		}
 	}
 );
