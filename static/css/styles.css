@@ -70,6 +70,21 @@ body{
 	height:100%;
 }
 
+#users{
+	height:100%;
+	position:relative;
+}
+
+#users .form-control{
+	position:absolute;
+	top:15px;
+	bottom:6px;
+	left: 15px;
+	right: 15px;
+	height:auto;
+	width: auto;
+}
+
 #logout{
 	width: 100%;
 	margin-top: 15px;

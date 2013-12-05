@@ -2,7 +2,7 @@
 MyApp.controller('ChatController',
 	function ($scope, $timeout, $location, $routeParams, CurrentUserModel, angularFire) {
 		
-		//This makes it so that the chat scrolls down only when a new Message is added, OR the page is loaded... (not on newMessage change)
+		//This enables chat to scroll down only after a newMessage is added, OR the page is loaded... (not on newMessage keydown)
 		$scope.chat_height = 0;
 
 		$scope.newMessage = "";
@@ -11,8 +11,8 @@ MyApp.controller('ChatController',
 		angularFire(ref, $scope, "messages");
 
 		$scope.addMessage = function(e){
-			if (e.keyCode != 13) return;
-			$scope.messages.push({from: CurrentUserModel.username, body: $scope.newMessage});
+			if (e.keyCode != 13 || $scope.newMessage === "") return;
+			$scope.messages.push({from: CurrentUserModel.getUser().username, body: $scope.newMessage});
 			$scope.newMessage = "";
 			$scope.scrollChatDown();
 		};
@@ -34,4 +34,3 @@ MyApp.controller('ChatController',
 		};
     }
 );
-

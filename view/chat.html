@@ -18,7 +18,7 @@
 				</ul>
 		    </div>
 		</div>
-		<div id="chat" class="col-md-9" ng-controller="ChatController">
+		<div id="chat" class="col-md-7" ng-controller="ChatController">
 			<div id="messageOut">
 				<ul class="form-control">
 					<li ng-repeat="msg in messages" on-finish-render>
@@ -27,6 +27,13 @@
 				</ul>
 			</div>
 			<input id="messageIn" class="form-control" type="text" ng-model="newMessage" placeholder="Message..." ng-keydown="addMessage($event)" >
+		</div>
+		<div id="users" class="col-md-2" ng-controller="UserController">
+			<ul class="form-control">
+				<li ng-repeat="(username, status) in users">
+					<b>{{username}}</b>
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>	

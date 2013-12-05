@@ -12,30 +12,20 @@
 MyApp.service('CurrentUserModel',
 	function(){
 
-		this.loggedIn = false;
 		this.username = "";
+		this.loggedIn = false;
 
 		this.getUser = function(){
-			if(localStorage.getItem('CurrentUserModel')){
-				user = JSON.parse(localStorage.getItem('CurrentUserModel'));
-				this.setUser(user.username);
-			}
 			return this;
 		};
 
-		this.setUser = function($username){
-			localStorage.setItem('CurrentUserModel',JSON.stringify({
-				loggedIn: true,
-				username: $username
-			}));
+		this.login = function(){
 			this.loggedIn = true;
-			this.username = $username;
 		};
 
-		this.removeUser = function(){
-			localStorage.removeItem('CurrentUserModel');
-			this.loggedIn = false;
+		this.logout = function(){
 			this.username = "";
+			this.loggedIn = false;
 		};
 	}
 );

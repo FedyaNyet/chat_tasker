@@ -31,12 +31,6 @@ var MyApp = angular
 	.controller('AppController',
 		function($scope, $location, CurrentUserModel){
 			
-			$scope.username = CurrentUserModel.username;
-
-			$scope.$watch("username",function(newVal, oldVal){
-				CurrentUserModel.username = newVal;
-			});
-			
 			//If use is loggedIn, send them to Chat, otherwise to Login.
 			$scope.$watch(function() { return $location.path(); }, function(newValue, oldValue){
 				if (! CurrentUserModel.getUser().loggedIn){
@@ -47,3 +41,4 @@ var MyApp = angular
 			});
 		}
 	);
+

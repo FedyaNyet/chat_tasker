@@ -24,6 +24,10 @@
 	    <script src='controller/UserController.js'></script>
 	    <script src='controller/TaskController.js'></script>
 	    <script src='model/CurrentUserModel.js'></script>
-
+	    <script>
+			$(window).bind('unload',function($event){
+				$('#logout').trigger('click');
+			});
+	    </script>
 	</body>
 </html>

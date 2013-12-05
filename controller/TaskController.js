@@ -18,9 +18,8 @@ MyApp.controller('TaskController',
 			$scope.tasks.splice($index, 1);
 		};
 
-
 		$scope.addTask = function(e){
-			if (e.keyCode != 13) return;
+			if (e.keyCode != 13 || $scope.newTask === "") return;
 			$scope.tasks.splice(0, 0, {checked:false, text:$scope.newTask});
 			$scope.newTask = "";
 		};
