@@ -19,12 +19,12 @@
 				</ul>
 		    </div>
 		</div>
-		<div ng-switch on="activeChat">
-			<div class"slide-in-right slide-out-left"  ng-switch-when="public" >
-				<ng-include src="'view/public-chat.html'"  ></ng-include>
+		<div class="col-md-7 animation-container" ng-switch on="activeChat">
+			<div class="left-screen"  ng-switch-when="public" >
+				<ng-include src="'view/public-chat.html'"></ng-include>
 			</div>
-			<div class="slide-in-left slide-out-right" ng-switch-when="private" >
-				<ng-include src="'view/private-chat.html'" ></ng-include>
+			<div class="right-screen" ng-switch-when="private" >
+				<ng-include src="'view/private-chat.html'"></ng-include>
 			</div>
 		</div>
 		<div id="users" class="col-md-2" ng-controller="UserController">

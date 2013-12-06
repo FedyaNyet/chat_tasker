@@ -40,6 +40,7 @@ var MyApp = angular
 
 			//If use is loggedIn, send them to Chat, otherwise to Login.
 			$scope.$watch(function() { return $location.path(); }, function(newValue, oldValue){
+				console.log(newValue);
 				if (! CurrentUserModel.getUser().loggedIn){
 					$location.path('/login');
 				}else{

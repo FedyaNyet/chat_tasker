@@ -1,5 +1,5 @@
-<div class="col-md-7" ng-controller="PrivateChatController" >
-	<div id="private_chat">
+<div id="chat_page" ng-controller="PrivateChatController">
+	<div class="chat_container">
 		<nav class="navbar navbar-default" role="navigation">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
@@ -18,7 +18,11 @@
 				</ul>
 			</div>
 		</nav>
-		<class="info-control">
+		<div class="messageOut">
+			<ul class="form-control">
+				<li>SOME INPUT</li>
+			</ul>
 		</div>
+		<input id="messageIn" class="form-control" type="text" ng-model="newMessage" placeholder="Message..." ng-keydown="addMessage($event)" >
 	</div>
 </div>
