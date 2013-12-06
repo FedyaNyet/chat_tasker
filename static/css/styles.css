@@ -19,6 +19,73 @@ body{
 	z-index: 4;
 }
 
+.left-screen, 
+.right-screen{
+	position:absolute;
+	top:0;
+	left:15px;
+	right:15px;
+	bottom:0;
+}
+
+.nav_container{
+	position:absolute;
+	top:0px;
+	right:0px;
+	left:0px;
+	height:50px;
+}
+
+.nav_container :before,
+.nav_container :after{
+	display:block !important;
+	content:initial !important;
+}
+
+.navbar a{
+	cursor:pointer;
+}
+
+.messageOut{
+    position: absolute;
+    top: 0px;
+    right:0px;
+    bottom: 40px;
+	left: 0px;
+    height: auto;
+}
+
+.messageIn{
+	position: absolute;
+	width: auto;
+	right: 0px;
+	left: 0px;
+	bottom: 0px;
+}
+
+.form-control{
+	box-shadow: 0px 0px 10px -4px #333 inset;
+}
+
+.messageOut{
+	position:absolute;
+	top:0px;
+	left:0px;
+	right:0px;
+    bottom: 40px;
+}
+
+
+.right-screen .messageOut{
+	top: 65px;
+}
+
+ul{
+	list-style: none;
+	list-style-position: outside;
+	overflow-y: scroll;
+}
+
 #tasks {
 	display: block;
 	position: absolute;
@@ -44,29 +111,6 @@ body{
 	margin-bottom:2px;
 }
 
-#messageOut{
-    height: 100%;
-    position: relative;
-}
-
-#messageOut ul{
-    position: absolute;
-    top: 0px;
-    bottom: 40px;
-    height: auto;
-
-}
-#messageIn{
-	position: absolute;
-	bottom: 0px;
-	width: auto;
-	left: 0px;
-	right: 0px;
-}
-.form-control{
-	box-shadow: 0px 0px 10px -4px #333 inset;
-}
-
 #chat_page{
 	position:relative;
 	width:100%;
@@ -81,15 +125,8 @@ body{
 	bottom:15px;
 }
 
-.navbar{
-	height:50px;
-}
-.navbar a{
-	cursor:pointer;
-}
-
-#private-chat .messageOut{
-	position:relative;
+#privat_chat .messageOut{
+	top:65px;
 }
 
 #users{
@@ -125,11 +162,3 @@ body{
 #username{
 	height:35px;
 }
-
-ul{
-	list-style: none;
-	list-style-position: outside;
-	overflow-y: scroll;
-}
-
-#modal

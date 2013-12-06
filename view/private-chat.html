@@ -1,28 +1,20 @@
 <div id="chat_page" ng-controller="PrivateChatController">
 	<div class="chat_container">
-		<nav class="navbar navbar-default" role="navigation">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<h4 class="navbar-text">{{toUsername}}</h4>
-			</div>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
+		<div class="nav_container">
+			<nav class="navbar navbar-default" role="navigation">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<h4 class="navbar-text">{{toUsername}}</h4>
+				</div>
+				<ul class="nav navbar-nav navbar-right" style="height:50px;">
 					<li><a ng-click="hideConversation(toUsername)">Back</a></li>
 					<li><a ng-click="endConversation(toUsername)">Close</a></li>
 				</ul>
-			</div>
-		</nav>
-		<div class="messageOut">
-			<ul class="form-control">
-				<li>SOME INPUT</li>
-			</ul>
+			</nav>
 		</div>
-		<input id="messageIn" class="form-control" type="text" ng-model="newMessage" placeholder="Message..." ng-keydown="addMessage($event)" >
+		<ul class="messageOut form-control">
+			<li>SOME INPUT</li>
+		</ul>
+		<input class="messageIn form-control" type="text" ng-model="newMessage" placeholder="Message..." ng-keydown="addMessage($event)" >
 	</div>
 </div>

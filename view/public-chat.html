@@ -1,12 +1,10 @@
 <div id="chat_page" ng-controller="PublicChatController">
 	<div class="chat_container">
-		<div id="messageOut">
-			<ul class="form-control">
-				<li ng-repeat="msg in messages" on-finish-render>
-					<b>{{msg.from}}</b>: {{msg.body}}
-				</li>
-			</ul>
-		</div>
-		<input id="messageIn" class="form-control" type="text" ng-model="newMessage" placeholder="Message..." ng-keydown="addMessage($event)" >
+		<ul class="messageOut form-control">
+			<li ng-repeat="msg in messages" on-finish-render>
+				<b>{{msg.from}}</b>: {{msg.body}}
+			</li>
+		</ul>
+		<input class="messageIn" class="form-control" type="text" ng-model="newMessage" placeholder="Message..." ng-keydown="addMessage($event)" >
 	</div>
 </div>
