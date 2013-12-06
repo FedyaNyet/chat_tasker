@@ -9,25 +9,30 @@
  * @function removeUser(): Removes the localStorage data and logges the CurrentUserModel out.
  */
 
-MyApp.service('CurrentUserModel',
+MyApp.service('ChatModel',
 	function(){
 
-		this.username = "";
-		this.loggedIn = false;
+		this.activeChat = "public";
+		this.toUsername = null;
 
-		this.getUser = function(){
+		this.startPublicChat = function(){
+			this.toUsername = null;
+			this.activeChat = "public";
 			return this;
 		};
 
-		this.login = function(){
-			this.loggedIn = true;
+		this.startPrivateChat = function(username){
+			//start local storage with chat info.
+			this.toUsername = username;
+			this.activeChat = "private";
 			return this;
 		};
 
-		this.logout = function(){
-			this.username = "";
-			this.loggedIn = false;
+		this.endPrivateChat = function(username){
+			//remove from local storage.
+			this.startPublicChat();
 			return this;
 		};
+
 	}
 );

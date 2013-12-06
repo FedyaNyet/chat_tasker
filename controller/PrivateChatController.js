@@ -1,29 +1,28 @@
 
 MyApp.controller('PrivateChatController',
-	function ($scope, $location, CurrentUserModel, angularFire) {
+	function ($scope, angularFire, CurrentUserModel, ChatModel) {
 		
 		$scope.privateMessages = {};
-		$scope.toUsername = ""
+		$scope.toUsername = ChatModel.toUsername;
 		var ref = new Firebase("https://private-messages-cs-701.firebaseio.com/");
 		angularFire(ref, $scope, "privateMessages");
 
-		
+		$scope.$watch(
+			function(){return ChatModel.toUsername;},
+			function(){$scope.toUsername = ChatModel.toUsername;}
+		);
 
 		$scope.showConversation = function(username){
-			console.log('showConversation:'+username);
-			$scope.$parent.activeChat = "private";
-			$scope.toUsername = username;
-		}
+			ChatModel.startPrivateChat(username);
+		};
 
-		$scope.hideConversation = function(){
-			console.log('hideConversation');
-			$scope.$parent.activeChat = "public";
-		}
+		$scope.hideConversation = function(username){
+			ChatModel.startPublicChat(username);
+		};
 
-		$scope.endConversation = function(){
-			console.log('endConversation');
-			$scope.$parent.activeChat = "public";
-		}
+		$scope.endConversation = function(username){
+			ChatModel.endPrivateChat(username);
+		};
 
 		$scope.sendMessage = function(){
 			console.log('sendMessage');
@@ -33,7 +32,7 @@ MyApp.controller('PrivateChatController',
 				message: "test message"
 			});
 			CurrentUserModel.showPrivateMessage($scope.user.username, username);
-		}
+		};
 
 
 	}

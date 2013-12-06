@@ -66,22 +66,12 @@ body{
 	box-shadow: 0px 0px 10px -4px #333 inset;
 }
 
-#publicChat, #privateChat{
-	height:100%;
+#private_chat{
+	margin-top:15px;
 }
 
-#publicChat.ng-enter{
-	
-}
-#publicChat.ng-leave{
-	
-}
-
-#privateChat.ng-enter{
-	
-}
-#privateChat.ng-leave{
-	
+.navbar a{
+	cursor:pointer;
 }
 
 #users{

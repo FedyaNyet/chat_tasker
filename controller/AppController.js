@@ -29,9 +29,14 @@ var MyApp = angular
 		};
 	})
 	.controller('AppController',
-		function($scope, $location, CurrentUserModel){
+		function($scope, $location, CurrentUserModel, ChatModel){
 			
-			$scope.activeChat = "public";
+			$scope.activeChat = ChatModel.startPublicChat().activeChat;
+
+			$scope.$watch(
+				function(){ return ChatModel.activeChat;},
+				function(){ $scope.activeChat = ChatModel.activeChat;}
+			);
 
 			//If use is loggedIn, send them to Chat, otherwise to Login.
 			$scope.$watch(function() { return $location.path(); }, function(newValue, oldValue){
