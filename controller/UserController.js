@@ -1,6 +1,6 @@
 
 MyApp.controller('UserController',
-	function ($scope, $location, PrivateChatModel, UserModel) {
+	function ($scope, $location, $timeout, PrivateChatModel, UserModel) {
 
 		$scope.username = UserModel.username;
 		$scope.loginErrorMessage = null;
@@ -44,12 +44,17 @@ MyApp.controller('UserController',
 		};
 
 		$scope.userClicked = function(username){
-			if(username === UserModel.username) return;
-			$scope.appScope.activeChat = "private";
-			PrivateChatModel.startConversation(username);
-			//on running this controller, it means we've seen this conversation.
-			if($scope.privateChats[PrivateChatModel.activeHash])
-				PrivateChatModel.viewedChatCounts[PrivateChatModel.activeHash] = $scope.privateChats[PrivateChatModel.activeHash].length;
+			if(username === UserModel.username || username === PrivateChatModel.activeChatUsername) return;
+			PrivateChatModel.hideConversation();
+			$scope.appScope.activeChat = "public";//switch back to public context.
+			$timeout(function(){
+				$scope.appScope.activeChat = "private";
+				PrivateChatModel.startConversation(username);
+				//on running this controller, it means we've seen this conversation.
+				if($scope.privateChats[PrivateChatModel.activeHash])
+					PrivateChatModel.viewedChatCounts[PrivateChatModel.activeHash] = $scope.privateChats[PrivateChatModel.activeHash].length;
+			});
+			
 		};
 
 		$scope.logout = function(){

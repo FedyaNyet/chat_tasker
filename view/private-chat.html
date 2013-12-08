@@ -18,7 +18,8 @@
 				<b>{{getMessageSender(messageObj.sender)}}:</b>{{messageObj.message}}..
 			</li>
 		</ul>
-		<input class="messageIn form-control" type="text" ng-model="newMessage" placeholder="Message..." ng-keydown="sendMessage($event)" autofocus>
+		<input class="messageIn form-control" type="text" ng-model="newMessage" placeholder="Message..." ng-keydown="sendMessage($event)" 
+       ng-disabled="conversationDeleted"autofocus>
 	</div>
 </div>
  

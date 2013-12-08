@@ -28,8 +28,8 @@ MyApp.controller('PrivateChatController',
 		});
 
 		$scope.hideConversation = function(){
-			PrivateChatModel.hideConversation();
 			$scope.newMessage = "";
+			PrivateChatModel.hideConversation();
 			$scope.appScope.activeChat = "public";
 		};
 
