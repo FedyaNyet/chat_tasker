@@ -7,13 +7,14 @@
 					<h4 class="navbar-text">{{activePMUsername}}</h4>
 				</div>
 				<ul class="nav navbar-nav navbar-right" style="height:50px;">
-					<li><a ng-click="hideConversation(toUsername)">Back</a></li>
-					<li><a ng-click="endConversation(toUsername)">Close</a></li>
+					<li><a ng-click="hideConversation()">Public Chat</a></li>
 				</ul>
 			</nav>
 		</div>
 		<ul class="messageOut form-control">
-			<li>SOME INPUT</li>
+			<li ng-repeat="messageObj in allPrivateMessages[activeHash]">
+				<b>{{getMessageSender(messageObj.sender)}}:</b>{{messageObj.message}}..
+			</li>
 		</ul>
 		<input class="messageIn form-control" type="text" ng-model="newMessage" placeholder="Message..." ng-keydown="sendMessage($event)" >
 	</div>

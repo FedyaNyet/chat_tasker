@@ -3,8 +3,8 @@ MyApp.controller('UserController',
 	function ($scope, $location, PrivateChatModel, UserModel) {
 
 		$scope.username = "";
-		$scope.privateChats = {};
 		$scope.loginErrorMessage = null;
+		$scope.privateChats = {};
 
 		PrivateChatModel.addScopeModel($scope, 'privateChats');
 
@@ -29,12 +29,13 @@ MyApp.controller('UserController',
 
 		$scope.userClicked = function(username){
 			if(username === UserModel.username) return;
-			$scope.activeChat = "private";
-			$scope.activePMUsername = username;
+			$scope.$parent.activeChat = "private";
+			$scope.$parent.activePMUsername = username;
 		};
 
 		$scope.logout = function(){
 			UserModel.logout();
+			//close all private conversations...
 			$location.path('/login');
 		};
 
