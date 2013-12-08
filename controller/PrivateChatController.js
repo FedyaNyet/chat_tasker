@@ -16,12 +16,12 @@ MyApp.controller('PrivateChatController',
 			discociatePrivateChat = disassociate;
 		});
 
+
 		$scope.$watch('activePrivateMessages',function(newVal, oldVal){
 			if(!Object.keys(newVal).length && Object.keys(oldVal).length){
 				discociatePrivateChat();
 				$scope.conversationDeleted = true;
 				$scope.activePrivateMessages = oldVal;
-				console.log('removed Reff.', $scope.activePrivateMessages);
 			}
 		});
 

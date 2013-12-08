@@ -8,6 +8,16 @@ MyApp.controller('UserController',
 
 		PrivateChatModel.bindAllPrivateChatModel($scope, 'privateChats');
 
+
+		$scope.$watch('privateChats',function(){
+			for(var username in $scope.users){
+				var convoHash = PrivateChatModel.getConversationKey([username, $scope.username]);
+				if(!PrivateChatModel.viewedChatCounts[convoHash])
+					PrivateChatModel.viewedChatCounts[convoHash] = 0;
+			}
+		});
+
+
 		$scope.getActiveChat = function(){
 			return PrivateChatModel.activeChat;
 		};
@@ -22,8 +32,13 @@ MyApp.controller('UserController',
 		};
 
 		$scope.getChatColor = function(username){
+			var hash = PrivateChatModel.getConversationKey([$scope.username, username]);
+			var hasUnreads = Object.keys($scope.privateChats[hash]).length > PrivateChatModel.viewedChatCounts[hash];
 			if(PrivateChatModel.activeChatUsername === username){
 				return "green";
+			}
+			else if(hasUnreads){
+				return "red";
 			}
 			return "";
 		};
@@ -32,6 +47,9 @@ MyApp.controller('UserController',
 			if(username === UserModel.username) return;
 			$scope.appScope.activeChat = "private";
 			PrivateChatModel.startConversation(username);
+			//on running this controller, it means we've seen this conversation.
+			if($scope.privateChats[PrivateChatModel.activeHash])
+				PrivateChatModel.viewedChatCounts[PrivateChatModel.activeHash] = $scope.privateChats[PrivateChatModel.activeHash].length;
 		};
 
 		$scope.logout = function(){

@@ -7,9 +7,9 @@ MyApp.service('PrivateChatModel',
 		
 		this.activeHash = null;
 		this.activeChatUsername = null;
+		this.viewedChatCounts = {};
 
-
-		this.bindAllPrivateChatModel= function(scope, modelName, conversationEnded){
+		this.bindAllPrivateChatModel= function(scope, modelName){
 			return angularFire(new Firebase(_url), scope, modelName);
 		};
 
@@ -18,7 +18,7 @@ MyApp.service('PrivateChatModel',
 		};
 
 		this.sendMessage = function(message){
-			(new Firebase(_url+this.activeHash)).push().set(message);
+			(new Firebase(_url)).child(this.activeHash).push().set(message);
 		};
 
 		this.getCurrentUserIndex = function(){
@@ -42,6 +42,7 @@ MyApp.service('PrivateChatModel',
 			var user1 = UserModel.username;
 			var user2 = this.activeChatUsername;
 			this.activeHash = this.getConversationKey([user1, user2]);
+			this.viewedChatCounts[this.activeHash] = 0;
 		};
 
 		this.hideConversation = function(){
@@ -50,7 +51,10 @@ MyApp.service('PrivateChatModel',
 		};
 
 		this.deleteConversation = function(){
-			if (this.activeHash) (new Firebase(_url + this.activeHash )).remove();
+			if (this.activeHash){
+				(new Firebase(_url + this.activeHash )).remove();
+				this.viewedChatCounts[this.activeHash] = 0;
+			}
 			this.hideConversation();
 		};
 
@@ -61,8 +65,7 @@ MyApp.service('PrivateChatModel',
 				.reduce(function(a,b){
 					a=((a<<5)-a)+b.charCodeAt(0);
 					return a&a;
-				},0
-			);
+				},0);
 		};
 	}
 );
