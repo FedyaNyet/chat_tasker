@@ -1,29 +1,55 @@
 
 MyApp.controller('UserController',
-	function ($scope, $location, CurrentUserModel, angularFire) {
-		
-		$scope.user = CurrentUserModel.getUser();
+	function ($scope, $location, PrivateChatModel, UserModel) {
 
-		$scope.users = {};
-		var ref = new Firebase("https://usernames-cs-701.firebaseio.com/");
-		angularFire(ref, $scope, "users");
+		$scope.username = "";
+		$scope.privateChats = {};
+		$scope.loginErrorMessage = null;
+
+		PrivateChatModel.addScopeModel($scope, 'privateChats');
+
+		$scope.getActiveChat = function(){
+			return PrivateChatModel.activeChat;
+		};
+
+		$scope.hasChatHistory = function(username){
+			convoId = PrivateChatModel.getConversationKey([UserModel.username, username]);
+			if($scope.privateChats[convoId]){
+				return true;
+			}
+			return false;
+		};
+
+		$scope.getChatColor = function(username){
+			if($scope.activePMUsername === username){
+				return "red";
+			}
+			return "";
+		};
 
 		$scope.userClicked = function(username){
-			$scope.$parent.activeChat = "private";
-			CurrentUserModel.showPrivateMessage($scope.user.username, username);
-		}
+			if(username === UserModel.username) return;
+			$scope.activeChat = "private";
+			$scope.activePMUsername = username;
+		};
 
 		$scope.logout = function(){
-			delete $scope.users[$scope.user.username];
-			CurrentUserModel.logout();
-			$location.path('/logout');
+			UserModel.logout();
+			$location.path('/login');
 		};
 
 		$scope.login = function(e){
-			if (e.keyCode != 13 || $scope.user.username === "") return;
-			CurrentUserModel.login();
-			$scope.users[$scope.user.username] = $scope.user.username;
-			$location.path('/chat');
+			if (e.keyCode != 13 || $scope.username === "") return;
+			UserModel.login(
+				$scope.username,
+				function(){
+					$scope.loginErrorMessage = null;
+					$location.path('/chat');
+				},
+				function(){
+					$scope.loginErrorMessage = "Username Already Taken.";
+				}
+			);
 		};
 
 	}

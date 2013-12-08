@@ -1,5 +1,3 @@
-
-
 var MyApp = angular
 	.module('MyApp', ["ngRoute", "ngAnimate", "firebase"])
 	.config(function($routeProvider) {
@@ -29,22 +27,21 @@ var MyApp = angular
 		};
 	})
 	.controller('AppController',
-		function($scope, $location, CurrentUserModel, ChatModel){
+		function($scope, $location, UserModel){
 			
-			$scope.activeChat = ChatModel.startPublicChat().activeChat;
+			$scope.users = {};
+			UserModel.addScopeModel($scope, 'users');
 
-			$scope.$watch(
-				function(){ return ChatModel.activeChat;},
-				function(){ $scope.activeChat = ChatModel.activeChat;}
-			);
+			$scope.activeChat = "public";
+			$scope.activePMUsername = "";
+			$scope.username = UserModel.username;
 
 			//If use is loggedIn, send them to Chat, otherwise to Login.
-			$scope.$watch(function() { return $location.path(); }, function(newValue, oldValue){
-				console.log(newValue);
-				if (! CurrentUserModel.getUser().loggedIn){
-					$location.path('/login');
-				}else{
+			$scope.$watch(function() { return $location.path(); }, function(newVal, oldVal){
+				if(UserModel.loggedIn){
 					$location.path('/chat');
+				}else{
+					$location.path('/login');
 				}
 			});
 		}

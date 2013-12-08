@@ -30,7 +30,10 @@
 		<div id="users" class="col-md-2" ng-controller="UserController">
 			<ul class="form-control">
 				<li class="user" ng-repeat="(username, status) in users">
-					<b ng-controller="PrivateChatController" ng-click="showConversation($parent.username)">{{$parent.username}} <span class="glyphicon glyphicon-comment"></span></b>
+					<b ng-controller="PrivateChatController" ng-click="userClicked(username)">
+						{{$parent.username}}
+						<span ng-if="hasChatHistory(username)"class="glyphicon glyphicon-comment"></span>
+					</b>
 				</li>
 			</ul>
 		</div>

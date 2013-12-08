@@ -111,13 +111,13 @@ ul{
 	margin-bottom:2px;
 }
 
-#chat_page{
+.chat_view{
 	position:relative;
 	width:100%;
 	height:100%;
 }
 
-#chat_page .chat_container{
+.chat_view .chat_container{
 	position:absolute;
 	left:0px;
 	right:0px;

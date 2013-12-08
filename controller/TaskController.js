@@ -1,6 +1,6 @@
 
 MyApp.controller('TaskController',
-	function ($scope, CurrentUserModel, angularFire) {
+	function ($scope, angularFire) {
 		
 		$scope.newTask = "";
 		$scope.tasks = [];

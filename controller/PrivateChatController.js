@@ -1,20 +1,11 @@
 
 MyApp.controller('PrivateChatController',
-	function ($scope, angularFire, CurrentUserModel, ChatModel) {
+	function ($scope, UserModel) {
 		
+		$scope.toUsername = "";
+		$scope.newMessage = "";
 		$scope.privateMessages = {};
-		$scope.toUsername = ChatModel.toUsername;
-		var ref = new Firebase("https://private-messages-cs-701.firebaseio.com/");
-		angularFire(ref, $scope, "privateMessages");
-
-		$scope.$watch(
-			function(){return ChatModel.toUsername;},
-			function(){$scope.toUsername = ChatModel.toUsername;}
-		);
-
-		$scope.showConversation = function(username){
-			ChatModel.startPrivateChat(username);
-		};
+		UserModel.addScopeModel($scope, 'privateMessages');
 
 		$scope.hideConversation = function(username){
 			ChatModel.startPublicChat(username);
@@ -24,16 +15,18 @@ MyApp.controller('PrivateChatController',
 			ChatModel.endPrivateChat(username);
 		};
 
-		$scope.sendMessage = function(){
-			console.log('sendMessage');
-			$scope.privateMessages.push({
-				from:CurrentUserModel.getUser().username,
-				to: $scope.toUsername,
-				message: "test message"
-			});
-			CurrentUserModel.showPrivateMessage($scope.user.username, username);
+		$scope.sendMessage = function(e){
+			if (e.keyCode != 13 || $scope.newMessage === "") return;
+			var users = [CurrentUserModel.getUser().username,  $scope.toUsername];
+
+			var convoId = PrivateChatModel.getConversationKey(users);
+			if(!$scope.privateMessages[convoId])
+				$scope.privateMessages[convoId] = [];
+			$scope.privateMessages[convoId][$scope.privateMessages[convoId].length] = {
+				sender: users.sort().indexOf(CurrentUserModel.getUser().username),
+				message: $scope.newMessage
+			};
+			$scope.newMessage = "";
 		};
-
-
 	}
 );

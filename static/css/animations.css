@@ -4,7 +4,8 @@
 	overflow:hidden;
 }
 
-.animation-container .ng-animate {
+.left-screen.ng-animate,
+.right-screen.ng-animate{
 	-webkit-transition:all cubic-bezier(.42, 0, 1, 1) 0.3s;
 	transition:all cubic-bezier(.42, 0, 1, 1) 0.3s;
 }
