@@ -9,7 +9,7 @@ MyApp.service('PrivateChatModel',
 		this.activeChatUsername = null;
 
 
-		this.bindAllPrivateChatModel= function(scope, modelName){
+		this.bindAllPrivateChatModel= function(scope, modelName, conversationEnded){
 			return angularFire(new Firebase(_url), scope, modelName);
 		};
 
@@ -25,6 +25,10 @@ MyApp.service('PrivateChatModel',
 			var user1 = UserModel.username;
 			var user2 = this.activeChatUsername;
 			return ([user1, user2]).sort().indexOf(UserModel.username);
+		};
+
+		this.closeConversation = function(key){
+			if(key !== "")(new Firebase( _url + key )).remove();
 		};
 
 		this.getMessageSenderUsername = function(userIndex){

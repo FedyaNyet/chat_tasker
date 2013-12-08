@@ -22,7 +22,6 @@ MyApp.controller('UserController',
 		};
 
 		$scope.getChatColor = function(username){
-			console.log(PrivateChatModel.activeChatUsername, username);
 			if(PrivateChatModel.activeChatUsername === username){
 				return "green";
 			}
@@ -36,8 +35,13 @@ MyApp.controller('UserController',
 		};
 
 		$scope.logout = function(){
+			for(var username in $scope.users){
+				if(username !== UserModel.username){
+					var key = PrivateChatModel.getConversationKey([username, UserModel.username]);
+					PrivateChatModel.closeConversation(key);
+				}
+			}
 			UserModel.logout();
-			//close all private conversations...
 			$location.path('/login');
 		};
 

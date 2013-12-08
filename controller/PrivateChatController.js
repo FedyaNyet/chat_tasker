@@ -4,10 +4,26 @@ MyApp.controller('PrivateChatController',
 		
 		$scope.newMessage = "";
 		$scope.activePrivateMessages = {};
+		$scope.conversationDeleted = false;
 		$scope.activeChatUsername = PrivateChatModel.activeChatUsername;
 		$scope.activeHash = PrivateChatModel.activeHash;
 
-		PrivateChatModel.bindActiveChatModel($scope, 'activePrivateMessages');
+		//function pointer to remove angularFireConnection;
+		var discociatePrivateChat;
+
+		var activePrivateMessagesBinding = PrivateChatModel.bindActiveChatModel($scope, 'activePrivateMessages');
+		activePrivateMessagesBinding.then(function(disassociate) {
+			discociatePrivateChat = disassociate;
+		});
+
+		$scope.$watch('activePrivateMessages',function(newVal, oldVal){
+			if(!Object.keys(newVal).length && Object.keys(oldVal).length){
+				discociatePrivateChat();
+				$scope.conversationDeleted = true;
+				$scope.activePrivateMessages = oldVal;
+				console.log('removed Reff.', $scope.activePrivateMessages);
+			}
+		});
 
 		$scope.hideConversation = function(){
 			PrivateChatModel.hideConversation();
