@@ -23,6 +23,8 @@ MyApp.controller('PrivateChatController',
 				$scope.conversationDeleted = true;
 				$scope.activePrivateMessages = oldVal;
 			}
+			var convoKey = PrivateChatModel.getConversationKey([UserModel.username, PrivateChatModel.activeChatUsername]);
+			PrivateChatModel.viewedChatCounts[convoKey] = Object.keys(newVal).length;
 		});
 
 		$scope.hideConversation = function(){
