@@ -19,7 +19,7 @@
 				</ul>
 		    </div>
 		</div>
-		<div class="col-md-7 animation-container" ng-switch on="activeChat">
+		<div class="col-md-7 animation-container" ng-switch on="appScope.activeChat">
 			<div class="left-screen"  ng-switch-when="public" >
 				<ng-include src="'view/public-chat.html'"></ng-include>
 			</div>
@@ -32,7 +32,7 @@
 				<li class="user" ng-repeat="(username, status) in users">
 					<b ng-controller="PrivateChatController" ng-click="userClicked(username)">
 						{{$parent.username}}
-						<span ng-if="hasChatHistory(username)"class="glyphicon glyphicon-comment"></span>
+						<span ng-if="hasChatHistory(username)" class="glyphicon glyphicon-comment {{getChatColor(username)}}"></span>
 					</b>
 				</li>
 			</ul>

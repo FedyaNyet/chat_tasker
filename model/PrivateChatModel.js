@@ -1,23 +1,64 @@
 
 
 MyApp.service('PrivateChatModel',
-	function(angularFire){
+	function(angularFire, UserModel){
 
 		var _url = "https://private-messages-cs-701.firebaseio.com/";
-		var _ref = new Firebase(_url);
+		
+		this.activeHash = null;
+		this.activeChatUsername = null;
 
-		this.addScopeModel= function(scope, modelName){
-			return angularFire(_ref, scope, modelName);
+
+		this.bindAllPrivateChatModel= function(scope, modelName){
+			return angularFire(new Firebase(_url), scope, modelName);
 		};
-		this.getConversationKey= function(users){
-			var hash = JSON
+
+		this.bindActiveChatModel = function(scope, modelName){
+			return angularFire(new Firebase(_url+this.activeHash), scope, modelName);
+		};
+
+		this.sendMessage = function(message){
+			(new Firebase(_url+this.activeHash)).push().set(message);
+		};
+
+		this.getCurrentUserIndex = function(){
+			var user1 = UserModel.username;
+			var user2 = this.activeChatUsername;
+			return ([user1, user2]).sort().indexOf(UserModel.username);
+		};
+
+		this.getMessageSenderUsername = function(userIndex){
+			var user1 = UserModel.username;
+			var user2 = this.activeChatUsername;
+			return ([user1, user2]).sort()[userIndex];
+		};
+
+		this.startConversation = function(activeChatUsername){
+			this.activeChatUsername = activeChatUsername;
+			var user1 = UserModel.username;
+			var user2 = this.activeChatUsername;
+			this.activeHash = this.getConversationKey([user1, user2]);
+		};
+
+		this.hideConversation = function(){
+			this.activeHash = null;
+			this.activeChatUsername = null;
+		};
+
+		this.deleteConversation = function(){
+			if (this.activeHash) (new Firebase(_url + this.activeHash )).remove();
+			this.hideConversation();
+		};
+
+		this.getConversationKey = function(users){
+			return JSON
 				.stringify(users.sort())
 				.split("")
 				.reduce(function(a,b){
 					a=((a<<5)-a)+b.charCodeAt(0);
 					return a&a;
-				},0);
-			return hash;
+				},0
+			);
 		};
 	}
 );

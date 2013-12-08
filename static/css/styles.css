@@ -1,5 +1,13 @@
 *{}
 
+.red{
+	color:red;
+}
+
+.green{
+	color:green;
+}
+
 body{
 	background-image:url("../img/bg-5.png");
 }

@@ -32,11 +32,11 @@ var MyApp = angular
 			$scope.users = {};
 			UserModel.addScopeModel($scope, 'users');
 
-			$scope.activeChat = "public";
-			$scope.activePMUsername = "";
-			$scope.username = UserModel.username;
+			$scope.appScope = {
+				activeChat: "public"
+			};
 
-			$scope.$watch('activeChat',function(newVal, oldVal){console.log(newVal, oldVal);});
+			// $scope.$watch(function(){return $scope.appScope.activeChat;},function(newVal, oldVal){console.log(newVal, oldVal);});
 
 			//If use is loggedIn, send them to Chat, otherwise to Login.
 			$scope.$watch(function() { return $location.path(); }, function(newVal, oldVal){

@@ -2,17 +2,18 @@
 MyApp.controller('UserController',
 	function ($scope, $location, PrivateChatModel, UserModel) {
 
-		$scope.username = "";
+		$scope.username = UserModel.username;
 		$scope.loginErrorMessage = null;
 		$scope.privateChats = {};
 
-		PrivateChatModel.addScopeModel($scope, 'privateChats');
+		PrivateChatModel.bindAllPrivateChatModel($scope, 'privateChats');
 
 		$scope.getActiveChat = function(){
 			return PrivateChatModel.activeChat;
 		};
 
 		$scope.hasChatHistory = function(username){
+			if(username === UserModel.username) return false;
 			convoId = PrivateChatModel.getConversationKey([UserModel.username, username]);
 			if($scope.privateChats[convoId]){
 				return true;
@@ -21,16 +22,17 @@ MyApp.controller('UserController',
 		};
 
 		$scope.getChatColor = function(username){
-			if($scope.activePMUsername === username){
-				return "red";
+			console.log(PrivateChatModel.activeChatUsername, username);
+			if(PrivateChatModel.activeChatUsername === username){
+				return "green";
 			}
 			return "";
 		};
 
 		$scope.userClicked = function(username){
 			if(username === UserModel.username) return;
-			$scope.$parent.activeChat = "private";
-			$scope.$parent.activePMUsername = username;
+			$scope.appScope.activeChat = "private";
+			PrivateChatModel.startConversation(username);
 		};
 
 		$scope.logout = function(){
