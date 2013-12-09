@@ -2,7 +2,7 @@ chat_tasker
 ===========
 
 This project is a proof of concept implementation of a chat client done using Firebase and AngularJS. 
-Becuase this is a purely client side project, it's possible to host right of out your google drive as 
+Because this is a purely client side project, it's possible to host right of out your google drive as 
 demonstrated on http://goo.gl/Dm1BCX. 
 
 Notes from the developer:
