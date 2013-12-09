@@ -3,7 +3,7 @@ MyApp.controller('PrivateChatController',
 	function ($scope, $timeout, UserModel, PrivateChatModel) {
 
 		$scope.chatHeight = 0;
-		$scope.messages = {};
+		$scope.messages = [];
 		$scope.newMessage = "";
 
 		//Keep track of the public chat conversation.
@@ -52,7 +52,7 @@ MyApp.controller('PrivateChatController',
 
 		$scope.addMessage = function(e){
 			if (e.keyCode != 13 || $scope.newMessage === "") return;
-			PrivateChatModel.sendMessage({
+			$scope.messages.push({
 				sender: PrivateChatModel.getCurrentUserIndex(),
 				message: $scope.newMessage
 			});

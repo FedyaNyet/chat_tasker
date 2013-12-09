@@ -3,21 +3,21 @@ MyApp.controller('PublicChatController',
 	function ($scope, $timeout,  angularFire, UserModel, PublicChatModel) {
 		
 		$scope.chatHeight = 0;
-		$scope.messages = {};
+		$scope.messages = [];
 		$scope.newMessage = "";
 
 		//Keep track of the public chat conversation.
 		PublicChatModel.addScopeModel($scope, 'messages');
 
-		//scroll down the chat when you post a new message.
+		//Add the new message, and scroll the chat down & down the chat when you post a new message.
 		$scope.addMessage = function(e){
 			if (e.keyCode != 13 || $scope.newMessage === "") return;
-			PublicChatModel.addMessage({from: UserModel.username, body: $scope.newMessage});
+			$scope.messages.push({from: UserModel.username, body: $scope.newMessage});
 			$scope.newMessage = "";
 			$scope.scrollChatDown();
 		};
 
-		$scope.$watch(function(){
+		$scope.$watch('messages',function(){
 			$timeout(function(){
 				$scope.chatHeight = 0;
 				$('ul.messageOut li').each(function(){

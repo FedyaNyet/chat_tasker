@@ -1,9 +1,11 @@
 <html ng-app="MyApp">
 	<head>
+		<title>Chat Tasker</title>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+		<!-- Include the application stlyes -->
 		<link rel="stylesheet" href="static/css/bootstrap.min.css">
 		<link rel="stylesheet" href="static/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="static/css/styles.css">
@@ -14,6 +16,7 @@
 		
 		<div ng-view></div>
 
+		<!-- Include the Angular Framework and other project dependencies. -->
 		<script src='static/js/angular.js'></script>
 		<script src='static/js/angular-route.js'></script>
 		<script src='static/js/angular-animate.js'></script>
@@ -21,7 +24,8 @@
 		<script src='static/js/angularfire.min.js'></script>
     	<script src="static/js/jquery.js"></script>
 		<script src="static/js/bootstrap.min.js"></script>
-		
+			
+		<!-- Add the Angular Controller & Models-->
 		<script src='controller/AppController.js'></script>
 	    <script src='controller/UserController.js'></script>
 	    <script src='controller/PublicChatController.js'></script>
@@ -31,6 +35,7 @@
 	    <script src='model/PrivateChatModel.js'></script>
 	    <script src='model/UserModel.js'></script>
 	    <script>
+	    	//log the user out when they leave the site.
 			$(window).bind('unload',function(event){
 				$('#logout').trigger('click');
 			});

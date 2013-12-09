@@ -10,8 +10,8 @@ MyApp.service('PublicChatModel',
 			addScopeModel: function(scope, modelName){
 				return angularFire(_ref, scope, modelName);
 			},
-			addMessage: function(message){
-				_ref.push(message);
+			removeAllMessages: function(){
+				(new Firebase( _url )).remove();
 			}
 		};
 	}

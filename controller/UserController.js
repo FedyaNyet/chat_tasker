@@ -8,7 +8,7 @@ MyApp.controller('UserController',
 
 		PrivateChatModel.bindAllPrivateChatModel($scope, 'privateChats');
 
-
+		//This keeps track of how many private messages each user has received.
 		$scope.$watch('privateChats',function(){
 			for(var username in $scope.users){
 				var convoHash = PrivateChatModel.getConversationKey([username, $scope.username]);
@@ -17,11 +17,11 @@ MyApp.controller('UserController',
 			}
 		});
 
-
-		$scope.getActiveChat = function(){
-			return PrivateChatModel.activeChat;
-		};
-
+		/**
+		 * Check if the current user has an active conversation with supplied username.
+		 * @param  {String}  username | username of chat participant. (not current user's)
+		 * @return {Boolean}          | If the conversation exists.
+		 */
 		$scope.hasChatHistory = function(username){
 			if(username === UserModel.username) return false;
 			convoId = PrivateChatModel.getConversationKey([UserModel.username, username]);
@@ -31,10 +31,14 @@ MyApp.controller('UserController',
 			return false;
 		};
 
+		/**
+		 * Returns the color of the chat icon to display next to a users name
+		 * @param  {String} username | The username for which to return the status of the conversatin with the current user.
+		 * @return {String}          | The a color (blue, green, red) or empty string.
+		 */
 		$scope.getChatColor = function(username){
 			var hash = PrivateChatModel.getConversationKey([$scope.username, username]);
 			var hasUnreads = Object.keys($scope.privateChats[hash]).length > PrivateChatModel.viewedChatCounts[hash];
-			console.log(PrivateChatModel.activeChatUsername);
 			if(PrivateChatModel.activeChatUsername === username){
 				if(!PrivateChatModel.isActive){
 					return "blue";
@@ -47,6 +51,10 @@ MyApp.controller('UserController',
 			return "";
 		};
 
+		/**
+		 * This action set the application's scope.appScope.activePublicChat to true and starts the private conversation by updating the PrivateChatModel.
+		 * @param  {String} username | The user that was clicked.
+		 */
 		$scope.userClicked = function(username){
 			if(username === UserModel.username) return;
 			PrivateChatModel.hideConversation();
@@ -61,6 +69,9 @@ MyApp.controller('UserController',
 			
 		};
 
+		/**
+		 * Removes the current user from the firebase database. And navigates the user to the login screen.
+		 */
 		$scope.logout = function(){
 			for(var username in $scope.users){
 				if(username !== UserModel.username){
@@ -73,6 +84,10 @@ MyApp.controller('UserController',
 			$location.path('/login');
 		};
 
+		/**
+		 * The function checks if the username already exists and if it does, sets $scope.loginErrorMessage. If successful, redirectes the user to /chat
+		 * @param  {Event} e | The keypress event on the username input on the login screen.
+		 */
 		$scope.login = function(e){
 			if (e.keyCode != 13 || $scope.username === "") return;
 			UserModel.login(
