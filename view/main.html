@@ -9,7 +9,7 @@
 		    <div class="task-container">
 				<ul id="tasks" class="form-control"  ng-controller="TaskController">
 					<li>
-						<input type="text" ng-model="newTask" placeholder="Add New Task..." ng-keydown="addTask($event)">
+						<input type="text" ng-model="newTask" placeholder="Click to Add New Task..." ng-keydown="addTask($event)">
 					</li>
 					<li ng-repeat="task in tasks">
 						<input type="checkbox" ng-model="task.checked">
