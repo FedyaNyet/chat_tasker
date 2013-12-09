@@ -19,11 +19,11 @@
 				</ul>
 		    </div>
 		</div>
-		<div class="col-md-7 animation-container" ng-switch on="appScope.activeChat">
-			<div class="left-screen"  ng-switch-when="public" >
+		<div class="col-md-7 animation-container" ng-switch on="appScope.activePublicChat">
+			<div class="left-screen"  ng-switch-when="true" >
 				<ng-include src="'view/public-chat.html'"></ng-include>
 			</div>
-			<div class="right-screen" ng-switch-when="private" >
+			<div class="right-screen" ng-switch-when="false" >
 				<ng-include src="'view/private-chat.html'"></ng-include>
 			</div>
 		</div>

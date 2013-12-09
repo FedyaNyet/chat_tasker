@@ -50,9 +50,9 @@ MyApp.controller('UserController',
 		$scope.userClicked = function(username){
 			if(username === UserModel.username) return;
 			PrivateChatModel.hideConversation();
-			$scope.appScope.activeChat = "public";//switch back to public context.
+			$scope.appScope.activePublicChat = true;//switch back to public context.
 			$timeout(function(){
-				$scope.appScope.activeChat = "private";
+				$scope.appScope.activePublicChat = false;
 				PrivateChatModel.startConversation(username);
 				//on running this controller, it means we've seen this conversation.
 				if($scope.privateChats[PrivateChatModel.activeHash])

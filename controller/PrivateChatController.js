@@ -4,14 +4,17 @@ MyApp.controller('PrivateChatController',
 		
 		$scope.newMessage = "";
 		$scope.activePrivateMessages = {};
+		//Keep track of the public chat conversation.
 		$scope.isActive = PrivateChatModel.isActive;
 		$scope.activeChatUsername = PrivateChatModel.activeChatUsername;
 		$scope.activeHash = PrivateChatModel.activeHash;
 
 
+		//Syncronize the PrivateChatModel's isActive state with the scope to display in the view.
 		$scope.$watch(function(){return  PrivateChatModel.isActive; },function(){ $scope.isActive = PrivateChatModel.isActive; });
 
 		//function pointer to remove angularFireConnection;
+		//function pointer to remove angularFireConnection; (This will be called when a chat partner leave the chat, but the local chat convo shouldn't we wiped out.)
 		var discociatePrivateChat;
 
 		var activePrivateMessagesBinding = PrivateChatModel.bindActiveChatModel($scope, 'activePrivateMessages');
@@ -29,12 +32,14 @@ MyApp.controller('PrivateChatController',
 			PrivateChatModel.viewedChatCounts[convoKey] = Object.keys(newVal).length;
 		});
 
+		//change the app's chat scope, to view the public chat.
 		$scope.hideConversation = function(){
 			$scope.newMessage = "";
 			PrivateChatModel.hideConversation();
-			$scope.appScope.activeChat = "public";
+			$scope.appScope.activePublicChat = true;
 		};
 
+		//becuase only the index of the sender is stored, a trnasaltion to the username must be made.
 		$scope.getMessageSender = function(senderIndex){
 			return PrivateChatModel.getMessageSenderUsername(senderIndex);
 		};
