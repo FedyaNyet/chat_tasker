@@ -8,12 +8,18 @@
 	color:green;
 }
 
+.blue{
+	color: blue;
+}
+
 body{
 	background-image:url("../img/bg-5.png");
 }
 	
 .container{
 	background-color: rgba(255,255,255,0.5);
+	height:100%;
+	overflow: scroll;
 }
 
 .row.full{
@@ -48,6 +54,10 @@ body{
 .nav_container :after{
 	display:block !important;
 	content:initial !important;
+}
+
+.navbar h5{
+	padding-top: 3px;
 }
 
 .navbar a{
@@ -86,6 +96,18 @@ body{
 
 .right-screen .messageOut{
 	top: 65px;
+}
+@media screen and (max-width: 768px){
+	.right-screen .messageOut{
+		top:130px !important;
+	}
+	.nav-bar h3, .navbar a{
+		margin-left:10px;
+	}
+	.navbar h4 {
+		margin-left: 10px;
+		margin-right:10px;
+	}
 }
 
 ul{
@@ -133,9 +155,10 @@ ul{
 	bottom:15px;
 }
 
-#privat_chat .messageOut{
-	top:65px;
+.messageOut b{
+	padding-right:5px;
 }
+
 
 #users{
 	height:100%;

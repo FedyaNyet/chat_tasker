@@ -1,9 +1,15 @@
 <div class="container" ng-controller="UserController">
-	<div class="row full">
-		<span id="login" class="col-md-offset-4 col-md-4">
+	<div id="login" class="row">
+		<div class="col-md-offset-4 col-md-2 col-sm-3">
 			<label>Select a Username</label>
-			<input id="username" ng-model="username" class="form-control" type="text" ng-keydown="login($event)" placeholder="Username..." autofocus="autofocus" ></input>
+		</div>
+		<div class="col-md-2 col-sm-6">
 			<div ng-if="loginErrorMessage">{{loginErrorMessage}}</div>
-		</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-4 col-md-4">
+				<input id="username" ng-model="username" class="form-control" type="text" ng-keydown="login($event)" placeholder="Username..." autofocus="autofocus" ></input>
+		</div>
 	</div>
 </div>

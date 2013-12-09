@@ -8,6 +8,7 @@ MyApp.service('PrivateChatModel',
 		this.activeHash = null;
 		this.activeChatUsername = null;
 		this.viewedChatCounts = {};
+		this.isActive = false;
 
 		this.bindAllPrivateChatModel= function(scope, modelName){
 			return angularFire(new Firebase(_url), scope, modelName);
@@ -43,20 +44,24 @@ MyApp.service('PrivateChatModel',
 			var user2 = this.activeChatUsername;
 			this.activeHash = this.getConversationKey([user1, user2]);
 			this.viewedChatCounts[this.activeHash] = 0;
+			this.isActive = true;
+			console.log('convo started');
 		};
 
 		this.hideConversation = function(){
+			this.isActive = false;
 			this.activeHash = null;
 			this.activeChatUsername = null;
 		};
 
-		this.deleteConversation = function(){
-			if (this.activeHash){
-				(new Firebase(_url + this.activeHash )).remove();
-				this.viewedChatCounts[this.activeHash] = 0;
-			}
-			this.hideConversation();
-		};
+		// this.deleteConversation = function(){
+		// 	console.log("PrivateChatModel.deleteConversation");
+		// 	if (this.activeHash){
+		// 		(new Firebase(_url + this.activeHash )).remove();
+		// 		this.viewedChatCounts[this.activeHash] = 0;
+		// 	}
+		// 	this.hideConversation();
+		// };
 
 		this.getConversationKey = function(users){
 			return JSON
