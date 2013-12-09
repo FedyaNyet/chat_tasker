@@ -1,35 +1,41 @@
 
 MyApp.controller('PrivateChatController',
-	function ($scope, UserModel, PrivateChatModel) {
-		
+	function ($scope, $timeout, UserModel, PrivateChatModel) {
+
+		$scope.chatHeight = 0;
+		$scope.messages = {};
 		$scope.newMessage = "";
-		$scope.activePrivateMessages = {};
+
 		//Keep track of the public chat conversation.
 		$scope.isActive = PrivateChatModel.isActive;
 		$scope.activeChatUsername = PrivateChatModel.activeChatUsername;
 		$scope.activeHash = PrivateChatModel.activeHash;
 
-
 		//Syncronize the PrivateChatModel's isActive state with the scope to display in the view.
 		$scope.$watch(function(){return  PrivateChatModel.isActive; },function(){ $scope.isActive = PrivateChatModel.isActive; });
 
-		//function pointer to remove angularFireConnection;
 		//function pointer to remove angularFireConnection; (This will be called when a chat partner leave the chat, but the local chat convo shouldn't we wiped out.)
 		var discociatePrivateChat;
 
-		var activePrivateMessagesBinding = PrivateChatModel.bindActiveChatModel($scope, 'activePrivateMessages');
-		activePrivateMessagesBinding.then(function(disassociate) {
-			discociatePrivateChat = disassociate;
-		});
+		if(!$scope.appScope.activePublicChat)
+			PrivateChatModel.bindActiveChatModel($scope, 'messages').then(function(disassociate) {
+				discociatePrivateChat = disassociate;
+			});
 
-		$scope.$watch('activePrivateMessages',function(newVal, oldVal){
+		$scope.$watch('messages', function(newVal, oldVal){
 			if(!Object.keys(newVal).length && Object.keys(oldVal).length){
 				discociatePrivateChat();
 				PrivateChatModel.isActive = false;
-				$scope.activePrivateMessages = oldVal;
+				$scope.messages = oldVal;
 			}
 			var convoKey = PrivateChatModel.getConversationKey([UserModel.username, PrivateChatModel.activeChatUsername]);
 			PrivateChatModel.viewedChatCounts[convoKey] = Object.keys(newVal).length;
+			$timeout(function(){
+				$scope.chatHeight = 0;
+				$('ul.messageOut li').each(function(){
+					$scope.chatHeight += $(this).outerHeight();
+				});
+			});
 		});
 
 		//change the app's chat scope, to view the public chat.
@@ -44,13 +50,23 @@ MyApp.controller('PrivateChatController',
 			return PrivateChatModel.getMessageSenderUsername(senderIndex);
 		};
 
-		$scope.sendMessage = function(e){
+		$scope.addMessage = function(e){
 			if (e.keyCode != 13 || $scope.newMessage === "") return;
 			PrivateChatModel.sendMessage({
 				sender: PrivateChatModel.getCurrentUserIndex(),
 				message: $scope.newMessage
 			});
 			$scope.newMessage = "";
+			$scope.scrollChatDown();
+		};
+
+		//scroll down to bottom of chat screen when the page loads.
+		$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+			$scope.scrollChatDown($scope.chatHeight);
+		});
+
+		$scope.scrollChatDown = function(){
+			$('ul.messageOut').scrollTop($scope.chatHeight+20);
 		};
 	}
 );

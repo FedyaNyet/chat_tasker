@@ -1,4 +1,7 @@
-*{}
+*{
+	background-image: none !important;
+	box-shadow: none !important;
+}
 
 .red{
 	color:red;
@@ -13,7 +16,7 @@
 }
 
 body{
-	background-image:url("../img/bg-5.png");
+	background-image:url("../img/bg-5.png") !important;
 }
 	
 .container{
@@ -79,10 +82,6 @@ body{
 	right: 0px;
 	left: 0px;
 	bottom: 0px;
-}
-
-.form-control{
-	box-shadow: 0px 0px 10px -4px #333 inset;
 }
 
 .messageOut{

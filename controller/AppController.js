@@ -41,7 +41,7 @@ var MyApp = angular
 			 * @type appScope | contains only the 'activePublicChat' attribute that determines if the user is currently in the public or a private chat room.
 			 */
 			$scope.appScope = {
-				activePublicChat: true
+				activePublicChat: true,
 			};
 
 			//If use is loggedIn, send them to Chat, otherwise to Login.

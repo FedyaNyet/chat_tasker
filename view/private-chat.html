@@ -13,8 +13,8 @@
 		</div>
 
 		<ul class="messageOut form-control">
-			<li ng-repeat="messageObj in messages">
-				<b>{{getMessageSender(messageObj.sender)}}:</b>{{messageObj.message}}..
+			<li ng-repeat="messageObj in messages" on-finish-render>
+				<b>{{getMessageSender(messageObj.sender)}}:</b>{{messageObj.message}}
 			</li>
 		</ul>
 		<input class="messageIn form-control" type="text" ng-model="newMessage" placeholder="Message..." ng-keydown="addMessage($event)" 

@@ -15,7 +15,7 @@ MyApp.service('PrivateChatModel',
 		};
 
 		this.bindActiveChatModel = function(scope, modelName){
-			return angularFire(new Firebase(_url+this.activeHash), scope, modelName);
+			return angularFire(new Firebase(_url).child(this.activeHash), scope, modelName);
 		};
 
 		this.sendMessage = function(message){
